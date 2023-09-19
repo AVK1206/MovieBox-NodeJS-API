@@ -75,3 +75,22 @@ app.post("/movies", (req, res) => {
   })
   .catch(() => handleError(res, "Something went wrong..."));
 });
+
+// Handle PATCH requests to update a movie record in the database by its ID.
+app.patch('/movies/:id', (req, res) => {
+  if (ObjectId.isValid(req.params.id)) {
+    const movieId = new ObjectId(req.params.id);
+
+    db
+      .collection('movies')
+      .updateOne({ _id: movieId }, { $set: req.body })
+      .then((result) => {
+        res
+          .status(200)
+          .json(result);
+      })
+      .catch(() => handleError(res, "Something goes wrong..."));
+  } else {
+    handleError(res, "Wrong id");
+  }
+});
