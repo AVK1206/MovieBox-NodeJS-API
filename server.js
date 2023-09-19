@@ -77,20 +77,40 @@ app.post("/movies", (req, res) => {
 });
 
 // Handle PATCH requests to update a movie record in the database by its ID.
-app.patch('/movies/:id', (req, res) => {
+app.patch("/movies/:id", (req, res) => {
   if (ObjectId.isValid(req.params.id)) {
     const movieId = new ObjectId(req.params.id);
 
     db
-      .collection('movies')
+      .collection("movies")
       .updateOne({ _id: movieId }, { $set: req.body })
       .then((result) => {
         res
           .status(200)
           .json(result);
       })
-      .catch(() => handleError(res, "Something goes wrong..."));
+      .catch(() => handleError(res, "Something went wrong..."));
   } else {
     handleError(res, "Wrong id");
   }
 });
+
+// Handle DELETE requests to remove a movie record from the database by its ID.
+app.delete("/movies/:id", (req, res) => {
+  if (ObjectId.isValid(req.params.id)) {
+    const movieId = new ObjectId(req.params.id);
+
+    db
+      .collection("movies")
+      .deleteOne({ _id: movieId })
+      .then((result) => {
+        res
+          .status(200)
+          .json(result);
+      })
+      .catch(() => handleError(res, "Something went wrong..."));
+  } else {
+    handleError(res, "Wrong id");
+  }
+});
+
