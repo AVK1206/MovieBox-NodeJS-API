@@ -62,3 +62,16 @@ app.get("/movies/:id", (req, res) => {
     handleError(res, "Wrong id");
   }
 });
+
+// Handle POST requests to add a new movie to the database.
+app.post("/movies", (req, res) => {
+  db
+  .collection('movies')
+  .insertOne(req.body)
+  .then((result) => {
+    res
+      .status(201)
+      .json(result);
+  })
+  .catch(() => handleError(res, "Something went wrong..."));
+});
