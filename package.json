@@ -1,0 +1,19 @@
+{
+  "name": "mongodb-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "work_with_mongodb.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
